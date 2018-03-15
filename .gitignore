@@ -279,5 +279,6 @@ yarn.lock
 .env
 
 # 本项目特定配置
+docs/
 dist/
 src/js/tpl/

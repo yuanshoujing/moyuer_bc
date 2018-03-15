@@ -3,6 +3,7 @@ import babel from 'gulp-babel';
 import watch from 'gulp-watch';
 import cached from 'gulp-cached';
 import remember from 'gulp-remember';
+import jsdoc from 'gulp-jsdoc3';
 import gls from 'gulp-live-server';
 
 import del from 'del';
@@ -19,6 +20,10 @@ gulp.task('js', () => {
         pipe(remember('js')).
         pipe(babel()).
         pipe(gulp.dest('dist'))
+});
+
+gulp.task('doc', (cbk) => {
+    gulp.src([jsfile], {read: false}).pipe(jsdoc(cbk));
 });
 
 gulp.task('watch', () => {
