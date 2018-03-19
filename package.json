@@ -21,6 +21,7 @@
     "run-sequence": "^2.2.1"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "lodash": "^4.17.5",
     "socket.io": "^2.0.4"
