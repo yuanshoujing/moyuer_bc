@@ -39,14 +39,18 @@ export default class BlockChain {
         sha256.update(guess);
         let guess_hash = sha256.digest('hex');
 
-        return _.startsWith(guess_hash, '0000');
+        return _.startsWith(guess_hash, '000');
+    }
+
+    proof_of_work_each (previous_proof, proof=0) {
+        return BlockChain.valid_proof(previous_proof, proof);
     }
 
     proof_of_work (previous_proof) {
         let proof = 0;
 
         while (true) {
-            let isValid = BlockChain.valid_proof(previous_proof, proof);
+            let isValid = proof_of_work_each(previous_proof, proof);
 
             if (isValid) {
                 break;

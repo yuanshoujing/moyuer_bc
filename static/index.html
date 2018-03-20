@@ -3,10 +3,65 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
-        <title></title>
-        link
+        <link rel="stylesheet" href="./font-awesome.min.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="./buttons.css" type="text/css" media="all" />
+        <title>区块链示例</title>
+        <style type="text/css" media="screen">
+            body {
+                text-align: center;
+            }
+
+            .board {
+                color: #fff;
+                background-color: #444;
+                width: 800px;
+                height: 150px;
+                line-height: 150px;
+                font-family: monospace;
+                font-size: 64px;
+                border: 5px solid #111;
+            }
+
+            div {
+                margin: 100px auto;
+                text-align: center;
+            }
+        </style>
     </head>
     <body>
-        body
+        <div class="board">0</div>
+        <button class="button button-glow button-rounded button-raised button-primary">开始</button>
+
+        <!------------- script ------------->
+        <script src="./socket.io.js"></script>
+        <script src="./jquery.min.js"></script>
+        <script charset="utf-8">
+            $(function () {
+                var socket = io();
+
+                socket.on('digg-result', function (result) {
+                    if (result) {
+                        $('button').removeAttr('disabled');
+                    }
+                    else {
+                        var v = parseInt($('.board').text()) + 1;
+                        $('.board').text(v);
+
+                        socket.emit('start-digg', v);
+                    }
+                });
+
+                $('button').on('click', function () {
+                    $(this).attr('disabled', 'disabled');
+
+                    var v = parseInt($('.board').text());
+                    if (v !== 0) {
+                        v += 1;
+                    }
+
+                    socket.emit('start-digg', v);
+                });
+            });
+        </script>
     </body>
 </html>
